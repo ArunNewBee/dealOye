@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<link href="../../../public/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="../../../public/css/font-awesome.min.css">
+
+ 
+</head>
+
+<body>
+{{template "header.html" .}}
+{{if .errors}}Please fix errors marked below!{{end}}
+<div id="header"></div>
+<div class="container">
+<div class="subcontainer padtb">
+<div class="hdd">Sign Up</div>
+<form method="post" action="/register/DoRegister">
+<div class="contc">
+    
+
+<p class="{{if .errors.fname}}error{{end}}">
+    <p class="msg">First Name</p>
+        <div class="item">
+            <input name="fname" type="text" class="txtbx" value="{{.flash.fname}}">
+        </div>
+        <span class="error">{{.errors.fname.Message}}</span>
+</p>
+<p class="{{if .errors.lname}}error{{end}}">    
+    <p class="msg">Last Name</p>
+    <div class="item">
+        <input name="lname" type="text" class="txtbx" value="{{.flash.lname}}">
+    </div>
+    <span class="error">{{.errors.lname.Message}}</span>
+</p>
+<p class="{{if .errors.username}}error{{end}}"> 
+    <p class="msg">User Name</p>
+    <div class="item">
+        <input name="username" type="text" class="txtbx" value="{{.flash.username}}">
+    </div>
+    <span class="error">{{.errors.username.Message}}</span>
+</p>    
+<p class="{{if .errors.email}}error{{end}}"> 
+    <p class="msg">E-mail</p>
+        <div class="item">
+        <input name="email" type="email" class="txtbx" value="{{.flash.email}}">
+        </div>
+    <span class="error">{{.errors.email.Message}}</span>
+</p>
+<p class="{{if .errors.phone}}error{{end}}">     
+    <p class="msg">Contact Number</p>
+    <div class="item">
+        <input name="phone" type="text" class="txtbx" value="{{.flash.phone}}">
+    </div>
+    <span class="error">{{.errors.phone.Message}}</span>
+</p>
+<p class="msg">Password</p>
+<div class="item">
+<input name="pass" type="password" class="txtbx">
+</div>
+<p class="{{if .errors.pass}}error{{end}}">  
+    <p class="msg">Confirm Password</p>
+    <div class="item">
+        <input name="cpass" type="password" class="txtbx">
+    </div>
+    <span class="error">{{.errors.pass.Message}}</span>
+</p>
+<br />
+<div class="item2">
+<input name="btnok" type="submit" value="SUBMIT" class="btnokc">
+</div>
+</div>
+</form>
+
+
+</div>
+</div>
+{{template "footer.html" .}}
+</body>
+</html>
