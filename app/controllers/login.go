@@ -10,6 +10,9 @@ func (c Login) UserLogin() revel.Result {
 	return c.Render()
 }
 
+func (c Login) ForgotPassword() revel.Result {
+	return c.Render()
+}
 func (c Login) DoLogin() revel.Result {
 	txtmail := c.Params.Get("txtmail")
 	c.Validation.Required(txtmail).Message("Please enter a email id")
