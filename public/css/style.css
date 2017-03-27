@@ -6,13 +6,17 @@ body
 	font-family: 'Montserrat', sans-serif;
 	font-size:14px;
 }
+::selection
+{
+	background-color:#f6d258;
+	color:#FFF;
+}
 .header
 {
 	width:100%;
 	display:block;
 	padding-top:20px;
 	padding-bottom:20px;
-	border-bottom:1px solid #D1D1D1;
 }
 .header1
 {
@@ -20,8 +24,7 @@ body
 	display:block;
 	padding-top:0px;
 	padding-bottom:10px;
-	border-bottom:1px solid #D1D1D1;
-	background-color:#f2f2f2;
+	background-color:#f6d258;
 }
 .subheader
 {
@@ -128,7 +131,7 @@ body
 {
 	display:block;
 	padding:7px 10px;
-	background-color:#e62e04;
+	background-color:#f6d258;
 	color:#FFF;
 	text-decoration:none;
 }
@@ -164,13 +167,13 @@ body
 	text-transform:uppercase;
 	display:block;
 	padding-right:10px;
-	color:#494949;
+	color:#000;
 	font-size:13px;
 	font-weight:400;
 }
 .menu > div > div > ul li a:hover
 {
-	color:#e62e04;	
+	color:#FFF;
 }
 
 
@@ -213,7 +216,13 @@ body
 	width:23.5%;
 	margin-right:2%;
 	margin-bottom:2%;
-	background-color:#E8E8E8;
+	background-color:#FFF;
+}
+.ditem li:hover, .ditem1 li:hover
+{
+-webkit-box-shadow: 0px 5px 11px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 5px 11px -4px rgba(0,0,0,0.75);
+box-shadow: 0px 5px 11px -4px rgba(0,0,0,0.75);
 }
 .ditem li:nth-child(4n)
 {
@@ -373,7 +382,7 @@ body
 {
 	display:block;
 	padding:10px;
-	background-color:#e62e04;
+	background-color:#f6d258;
 	color:#FFF;
 }
 .orgp
@@ -494,6 +503,7 @@ body
 	margin-left:auto;
 	margin-right:auto;
 }
+
 .item
 {
 	width:auto;
@@ -521,7 +531,7 @@ body
 {
 	width:95%;
 	border:1px solid transparent;
-	font-weight:100;
+	font-weight:400;
 	font-size:13px;
 	resize:none;
 	line-height:30px;
@@ -561,7 +571,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 {
 	font-family:Montserrat;
 	border:none;
-	background-color:#e62e04;
+	background-color:#f6d258;
 	color:#FFF;
 	padding:14px 25px;
 	font-size:16px;
@@ -585,4 +595,30 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 	text-align:center;
 	font-size:34px;
 	padding-bottom:30px;
+}
+.loginlogo
+{
+    width: 100%;
+	text-align: center;
+	padding-top: 80px;
+	padding-bottom: 0px;
+}
+.loginlogo img
+{
+	width: 17%;
+}
+.forgot
+{
+	float: right;
+	padding-top: 15px;
+	color: #333;
+	font-size: 10px;
+}
+.forgot a{
+	color: #333;
+	text-decoration: none;
+}
+.colg
+{
+	background-color: #f1f2f3;
 }
