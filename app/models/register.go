@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	//"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 )
 
+//Register users
 type Register struct {
 	Lname    string
 	Fname    string
@@ -21,19 +22,20 @@ type Register struct {
 //DoRegistration function to insert user data
 func (r Register) DoRegistration() {
 	date := time.Now().Format("2006-01-02 15:04:05")
-	// password := []byte(r.Pass)
-	// // Hashing the password with the default cost of 10
-	// hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
+	password := []byte(r.Pass)
+	// Hashing the password with the default cost of 10
+	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+	if err != nil {
+		fmt.Println(err)
+	}
 	sql := "INSERT INTO `users` (lName,fName,userName,email,password,createdOn,lastLogin,phone) VALUES (?,?,?,?,?,?,?,?)"
-	_, err := app.DB.Exec(sql, r.Lname, r.Fname, r.UserName, r.Email, r.Pass, date, date, r.PNumber)
+	_, err = app.DB.Exec(sql, r.Lname, r.Fname, r.UserName, r.Email, hashedPassword, date, date, r.PNumber)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
+//CheckUserName checks if username exists in db or not
 func CheckUserName(user string) bool {
 	var count int
 	sql1 := "SELECT COUNT(*) FROM `users` WHERE username=?"
@@ -46,6 +48,8 @@ func CheckUserName(user string) bool {
 	}
 	return true
 }
+
+//CheckEmail checks if email exists in db or not
 func CheckEmail(email string) bool {
 	var count int
 	sql := "SELECT COUNT(*) FROM `users` WHERE email=?"
