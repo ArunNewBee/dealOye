@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"booking/app/routes"
 	"dealOye/app/models"
 
-	"fmt"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/revel/revel"
 )
@@ -72,8 +73,8 @@ func (c Register) DoRegister() revel.Result {
 	c.Validation.Required(fname).Message("Please enter a username")
 	c.Validation.Required(phone).Message("Mobile number is required")
 	c.Validation.Required(pass == cpass).Message("Your passwords do not match.")
-	c.Validation.Check(username, revel.Required{}, DuplicateUserNameValidator{})
-	c.Validation.Check(email, revel.Required{}, DuplicateEmailValidator{})
+	//c.Validation.Check(username, revel.Required{}, DuplicateUserNameValidator{})
+	//c.Validation.Check(email, revel.Required{}, DuplicateEmailValidator{})
 	var register models.Register
 	register.Fname = fname
 	register.Lname = lname
@@ -85,17 +86,17 @@ func (c Register) DoRegister() revel.Result {
 		// Store the validation errors in the flash context and redirect.
 		c.Validation.Keep()
 		c.FlashParams()
-		for _, v := range c.Validation.Errors {
-			fmt.Println(v.Key)
-			fmt.Println(v.Message)
-
-			//fmt.Println(c.Validation.Errors)
-		}
-
 		return c.Redirect(Register.GetRegister)
 	}
 
-	register.DoRegistration()
+	register.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(register.Pass), bcrypt.DefaultCost)
+	//register.DoRegistration()
+	// err := c.Txn.Insert(&user)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	return nil
+	c.Session["user"] = register.UserName
+	c.Flash.Success("Welcome, " + register.Fname)
+	return c.Redirect(routes.Application.Index())
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Forgot Password | Shopping with Deals</title>
+<title>Login | Shopping with Deals</title>
 <link href="../../../public/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="../../../public/css/font-awesome.min.css">
 
@@ -17,18 +17,23 @@
 <div class="subcontainer padtb">
 {{if .errors}}Please fix errors marked below!{{end}}
 
-<div class="hdd">Forgot Password?</div>
-<form method="post" action="/Login/DoLogin">
+<div class="hdd">Login</div>
+<form method="post" action="/doLogin">
 <div class="contc">
     
 
 <p class="{{if .errors.fname}}error{{end}}">
-<p class="msg">Enter your Email id</p>
+<p class="msg">username</p>
 <div class="item">
-<input name="email" type="email" class="txtbx" value="{{.flash.email}}" required>
+<input type="text" name="username" class="txtbx"  value="{{.flash.username}}" />
 </div>
 <span class="error">{{.errors.email.Message}}</span>
 </p>
+<p class="msg">Password</p>
+<div class="item">
+<input type="password" name="password" class="txtbx" />
+<span class="forgot"><a href="#">Forgot Password</a></span>
+</div>
 <br />
 <div class="item2">
 <input name="btnok" type="submit" value="SUBMIT" class="btnokc">

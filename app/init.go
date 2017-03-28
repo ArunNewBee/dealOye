@@ -1,8 +1,9 @@
 package app
 
 import (
-	"github.com/revel/revel"
 	"database/sql"
+
+	"github.com/revel/revel"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -15,6 +16,7 @@ const (
 	DB_USER = ""
 	DB_PASS = ""
 )
+
 var (
 	// AppVersion revel app version (ldflags)
 	AppVersion string
@@ -50,7 +52,6 @@ func init() {
 		revel.CompressFilter,          // Compress the result.
 		revel.ActionInvoker,           // Invoke the action.
 	}
-
 
 	// register startup functions with OnAppStart
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script

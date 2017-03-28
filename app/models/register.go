@@ -10,13 +10,14 @@ import (
 
 //Register users
 type Register struct {
-	Lname    string
-	Fname    string
-	Email    string
-	PNumber  string
-	Pass     string
-	Type     string
-	UserName string
+	Lname          string
+	Fname          string
+	Email          string
+	PNumber        string
+	Pass           string
+	Type           string
+	UserName       string
+	HashedPassword []byte
 }
 
 //DoRegistration function to insert user data
