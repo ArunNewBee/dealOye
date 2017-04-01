@@ -1,10 +1,13 @@
 package controllers
 
 import (
-	"booking/app/routes"
+	"crypto/rand"
 	"dealOye/app/models"
-
-	"golang.org/x/crypto/bcrypt"
+	"dealOye/app/routes"
+	"dealOye/app/services"
+	"encoding/base64"
+	"fmt"
+	"time"
 
 	"github.com/revel/revel"
 )
@@ -73,8 +76,8 @@ func (c Register) DoRegister() revel.Result {
 	c.Validation.Required(fname).Message("Please enter a username")
 	c.Validation.Required(phone).Message("Mobile number is required")
 	c.Validation.Required(pass == cpass).Message("Your passwords do not match.")
-	//c.Validation.Check(username, revel.Required{}, DuplicateUserNameValidator{})
-	//c.Validation.Check(email, revel.Required{}, DuplicateEmailValidator{})
+	c.Validation.Check(username, revel.Required{}, DuplicateUserNameValidator{})
+	c.Validation.Check(email, revel.Required{}, DuplicateEmailValidator{})
 	var register models.Register
 	register.Fname = fname
 	register.Lname = lname
@@ -88,15 +91,52 @@ func (c Register) DoRegister() revel.Result {
 		c.FlashParams()
 		return c.Redirect(Register.GetRegister)
 	}
+	register.EmailExpiry = time.Now().Unix() + 60*60
 
-	register.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(register.Pass), bcrypt.DefaultCost)
-	//register.DoRegistration()
-	// err := c.Txn.Insert(&user)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	hash, err := GenerateRandomString(32)
+	if err != nil {
+		fmt.Println(err)
+	}
+	register.Emailhash = hash
+
+	//register.HashedPassword, _ = bcrypt.GenerateFromPassword([]byte(register.Pass), bcrypt.DefaultCost)
+	err = register.DoRegistration()
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	c.Session["user"] = register.UserName
 	c.Flash.Success("Welcome, " + register.Fname)
+
+	mail := services.NewRequest([]string{register.Email}, "DealOyeDeal Mail Confirmation", "")
+	mail.SendMail(register.UserName, register.Emailhash, "ramseyRmas")
 	return c.Redirect(routes.Application.Index())
+}
+
+func (c Register) EmailVerification(username, hash string) revel.Result {
+
+	msg, err := models.EmailVerify(username, hash)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	if msg == "emailExpired" {
+		fmt.Println(msg)
+	}
+	return c.Render(msg)
+}
+func GenerateRandomBytes(n int) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	// Note that err == nil only if we read len(b) bytes.
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func GenerateRandomString(s int) (string, error) {
+	b, err := GenerateRandomBytes(s)
+	return base64.URLEncoding.EncodeToString(b), err
 }

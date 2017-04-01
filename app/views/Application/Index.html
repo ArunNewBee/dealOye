@@ -204,7 +204,17 @@ Rs <span class="orgp">200</span>&nbsp;&nbsp;&nbsp;<span class="offp">50</span>
 </div>
 
 {{template "footer.html" .}}
-
+{{if .User.HasPermission "feature-a"}}
+  <div class="feature">
+    <h3>Feature A</h3>
+    <p>Some other stuff here...</p>
+  </div>
+{{else}}
+  <div class="feature disabled">
+    <h3>Feature A</h3>
+    <p>To enable Feature A please upgrade your plan</p>
+  </div>
+{{end}}
   <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
   <script src="../../../public/js/slick.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">

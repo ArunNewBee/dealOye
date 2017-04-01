@@ -15,7 +15,13 @@
 <input name="btnsrch" type="button" value="&#xf002;" class="bt1 fa fa-lg">
 </div>
 </li>
+{{if .loggedIn}}
+<li>
+<a href="/logout" class="log">Log Out</a>
+</li>
+{{end}}
 
+{{if .loggedOut}}
 <li>
 <a href="/register" class="log">Sign up</a>
 </li>
@@ -23,9 +29,7 @@
 <li>
 <a href="/login" class="log">Log in</a>
 </li>
-<li>
-<a href="/logout" class="log">Log Out</a>
-</li>
+{{end}}
 <li>
 <div class="bob2">
 <select name="place" class="pl">

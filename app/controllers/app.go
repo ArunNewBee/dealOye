@@ -4,6 +4,8 @@ import (
 	"dealOye/app/models"
 	"dealOye/app/routes"
 
+	"fmt"
+
 	"github.com/revel/revel"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -13,7 +15,14 @@ type Application struct {
 }
 
 func (c Application) Index() revel.Result {
-	return c.Render()
+	//ma := make(map[string]string)
+	var loggedOut, loggedIn bool
+	if user := c.connected(); user == nil {
+		loggedOut = true
+	} else {
+		loggedIn = true
+	}
+	return c.Render(loggedIn, loggedOut)
 }
 
 func (c Application) Login() revel.Result {
@@ -21,9 +30,9 @@ func (c Application) Login() revel.Result {
 }
 
 func (c Application) DoLogin(username, password string, remember bool) revel.Result {
-
+	fmt.Println(username)
 	user := models.GetUser(username)
-
+	fmt.Println(user)
 	if user != nil {
 		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
 		if err == nil {

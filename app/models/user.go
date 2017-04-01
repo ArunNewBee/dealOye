@@ -1,9 +1,8 @@
 package models
 
 import (
+	"dealOye/app"
 	"fmt"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -15,10 +14,14 @@ type User struct {
 
 func GetUser(username string) *User {
 	var user User
-	user.Username = "prabesh"
-	pa := "prabesh"
-	pass := []byte(pa)
-	user.HashedPassword, _ = bcrypt.GenerateFromPassword(pass, bcrypt.DefaultCost)
+	var password string
+	sql := "SELECT password FROM `users` WHERE username=?"
+	err := app.DB.QueryRow(sql, username).Scan(&password)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	return &user
 }
 

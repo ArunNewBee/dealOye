@@ -13,6 +13,7 @@ GET     /login                                  Application.Login
 
 GET     /logout                                 Application.Logout
 
+GET    /emailverification                       Register.EmailVerification
 
 POST    /doLogin                                Application.DoLogin
 

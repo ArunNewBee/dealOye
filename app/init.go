@@ -10,12 +10,7 @@ import (
 
 var DB *sql.DB
 
-const (
-	DB_HOST = ""
-	DB_NAME = ""
-	DB_USER = ""
-	DB_PASS = ""
-)
+const ()
 
 var (
 	// AppVersion revel app version (ldflags)
@@ -57,7 +52,7 @@ func init() {
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
 	// revel.OnAppStart(ExampleStartupScript)
-	// revel.OnAppStart(InitDB)
+	revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
 }
 
