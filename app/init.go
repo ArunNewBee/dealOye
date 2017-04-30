@@ -10,7 +10,12 @@ import (
 
 var DB *sql.DB
 
-const ()
+const (
+	DB_HOST = "tcp(216.158.227.83:3306)"
+	DB_NAME = "techelse_deal"
+	DB_USER = "techelse_oyedeal"
+	DB_PASS = "xAvp[2F4WQa0"
+)
 
 var (
 	// AppVersion revel app version (ldflags)

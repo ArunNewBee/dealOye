@@ -4,8 +4,6 @@ import (
 	"dealOye/app"
 	"fmt"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 //Register users
@@ -25,14 +23,15 @@ type Register struct {
 //DoRegistration function to insert user data
 func (r Register) DoRegistration() error {
 	date := time.Now().Format("2006-01-02 15:04:05")
-	password := []byte(r.Pass)
+	// password := []byte(r.Pass)
 	// Hashing the password with the default cost of 10
-	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
-	if err != nil {
-		return err
-	}
+	// hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+
+	// if err != nil {
+	// 	return err
+	// }
 	sql := "INSERT INTO `users` (lName,fName,userName,email,password,createdOn,lastLogin,phone,emailhash,emailExpiry) VALUES (?,?,?,?,?,?,?,?,?,?)"
-	_, err = app.DB.Exec(sql, r.Lname, r.Fname, r.UserName, r.Email, hashedPassword, date, date, r.PNumber, r.Emailhash, r.EmailExpiry)
+	_, err := app.DB.Exec(sql, r.Lname, r.Fname, r.UserName, r.Email, r.Pass, date, date, r.PNumber, r.Emailhash, r.EmailExpiry)
 	if err != nil {
 		return err
 	}

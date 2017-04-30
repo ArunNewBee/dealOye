@@ -7,7 +7,6 @@ import (
 	"fmt"
 
 	"github.com/revel/revel"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type Application struct {
@@ -30,12 +29,17 @@ func (c Application) Login() revel.Result {
 }
 
 func (c Application) DoLogin(username, password string, remember bool) revel.Result {
-	fmt.Println(username)
-	user := models.GetUser(username)
-	fmt.Println(user)
+
+	var user *models.User
+	user = models.GetUser(username)
+	fmt.Println(user.Password)
+	fmt.Println(password)
 	if user != nil {
-		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
-		if err == nil {
+		// err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+		// if err != nil {
+		// 	fmt.Println(err)
+		// }
+		if password == user.Password {
 			c.Session["user"] = username
 			if remember {
 				c.Session.SetDefaultExpiration()
@@ -45,6 +49,7 @@ func (c Application) DoLogin(username, password string, remember bool) revel.Res
 			c.Flash.Success("Welcome, " + username)
 			return c.Redirect(routes.Application.Index())
 		}
+
 	}
 
 	c.Flash.Out["username"] = username

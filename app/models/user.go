@@ -22,6 +22,7 @@ func GetUser(username string) *User {
 		fmt.Println(err)
 	}
 
+	user.Password = password
 	return &user
 }
 

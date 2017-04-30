@@ -21,10 +21,11 @@ GET     /register                               Register.GetRegister
 
 POST    /register                               Register.DoRegister
 
-GET    /deal/:id                                Deal.GetDeal
+GET     /deal                                        Deal.ListDeal
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
+GET     /deal/:id                               Deal.GetDeal
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
 

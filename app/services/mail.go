@@ -20,7 +20,7 @@ type MailRequest struct {
 
 func (r *MailRequest) SendMail(username, hash, url string) {
 
-	auth = smtp.PlainAuth("", "prabeshnair91@gmail.com", "prajesh1984", "smtp.gmail.com")
+	auth = smtp.PlainAuth("", "dealoyedeal2017@gmail.com", "oyeoye123%", "smtp.gmail.com")
 	templateData := struct {
 		Name string
 		URL  string
